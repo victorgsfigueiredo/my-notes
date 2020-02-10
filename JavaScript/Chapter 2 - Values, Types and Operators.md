@@ -104,3 +104,11 @@ console.log(typeof 2);
 console.log(typeof "dois");
 // -> string
 ```
+
+Alguns operadores, como o ```-```, podem ser tanto unários quanto binários: ```- (5 - 3)``` = ```-2```.
+
+## Valores booleanos
+
+Em toda linguagem de programação, possuímos a representação dos valores booleanos. Eles são necessários em situações em que o programa precisa de apenas duas opções, como "sim" e "não", ou "on" e "off". No Javascript, os valores booleanos são representados como ```true``` e ```false```.
+
+## Comparação
