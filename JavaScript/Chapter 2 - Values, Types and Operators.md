@@ -111,4 +111,16 @@ Alguns operadores, como o ```-```, podem ser tanto unários quanto binários: ``
 
 Em toda linguagem de programação, possuímos a representação dos valores booleanos. Eles são necessários em situações em que o programa precisa de apenas duas opções, como "sim" e "não", ou "on" e "off". No Javascript, os valores booleanos são representados como ```true``` e ```false```.
 
-## Comparação
+### Comparação
+
+Os valores booleanos são produtos de comparações lógicas. Quando passamos uma expressão lógica, ela será interpretada e, sendo verdadeira, retornará o valor true, do contrário, false. Vejamos alguns exemplos:
+
+```2 < 3 ``` returns ```true```
+
+```3 < 2``` returns ```false```
+
+Também é possível realizar comparações lógicas com strings, não apenas números. Por exemplo:
+
+```"Aardvark" < "Zoroaster``` returns ```true```
+
+A comparação entre strings não é feita alfabeticamente.
