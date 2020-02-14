@@ -123,4 +123,60 @@ Também é possível realizar comparações lógicas com strings, não apenas n�
 
 ```"Aardvark" < "Zoroaster``` returns ```true```
 
-A comparação entre strings não é feita alfabeticamente.
+A comparação entre strings não é feita alfabeticamente. Na verdade, cada caractere é comparado através do sistema Unicode, de forma que caracteres em minúsculos valem mais do que caracteres em maiúsculo. Outros caracteres especiais, como !, ?, -, entre outros, também entram nessa ordem de alguma maneira.
+
+Fora os operadores lógicos de maior e menor, também temos os seguintes:
+
+```==``` - é igual a
+```!=``` - é diferente de
+```>=``` - maior ou igual a
+```<=``` - menor ou igual a
+
+O único valor que não é igual a si próprio é o valor NaN.
+
+```
+console.log(NaN == NaN)
+// → false
+```
+
+### Operadores lógicos: E, OU e ternário
+
+Assim como na lógica matemática, em JavaScript possuímos os operadores lógicos E e OU.
+
+O operador lógico E é representado em JavaScript por ```&&```. Para que uma expressão lógica envolvendo o E retorne ```true```, é necessário que ambas as condições passadas sejam true. Vejamos dois exemplos:
+
+```
+1 == 1 && 10 / 2 == 5
+// → true
+```
+
+```
+1 == 1 && 50 / 5 == 1
+// → false
+```
+
+Já o operador lógico OU é representado por ```||``` e retorna true caso um dos valores passados seja true. Dois exemplos:
+
+```
+1 == 1 || 50 / 5 == 1
+// → true
+```
+
+```
+1 != 1 || 50 / 5 == 1
+// → false
+```
+
+É importante destacar que o JavaScript lê a expressão da seguinte maneira: se a expressão à esquerda for true, a expressão à direita é ignorada e o JavaScript retorna true. Se a expressão à esquerda for false, somente nessa ocasião o JavaScript irá avaliar a expressão à direita.
+
+O último operador lógico que vamos apresentar é o **operador ternário**. Ele é assim chamado porque, obviamente, leva três valores.
+
+```
+console.log(true ? 1 : 2);
+// → 1
+
+console.log(false ? 1 : 2);
+// → 2
+```
+
+Ele é bastante simples: se o primeiro valor for true, ele retornará o valor do meio. Se for false, ele retornará o último valor. Nesse exemplo, é apresentado um valor booleano, mas este pode ser substituído por qualquer expressão lógica que retorne um valor booleano.
