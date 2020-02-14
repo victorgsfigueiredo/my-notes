@@ -180,3 +180,73 @@ console.log(false ? 1 : 2);
 ```
 
 Ele é bastante simples: se o primeiro valor for true, ele retornará o valor do meio. Se for false, ele retornará o último valor. Nesse exemplo, é apresentado um valor booleano, mas este pode ser substituído por qualquer expressão lógica que retorne um valor booleano.
+
+### Conversão automática de tipos de dados
+
+O JavaScript sempre tenta converter um dos tipos de dados quando a comparação ou a interação entre eles não é possível. No começo, isso visava facilitar a vida dos desenvolvedores, de forma a minimizar o número de erros possíveis. Apesar disso, existe uma certa desvantagem nisso, uma vez que, às vezes, não queremos que o JavaScript faça essa correção, ou até mesmo quando não queremos que nosso erro seja encoberto. Vejamos alguns exemplos abaixo.
+
+```
+console.log(8 * null)
+// → 0
+
+console.log("5" - 1)
+// → 4
+
+console.log("5" + 1)
+// → 51
+
+console.log("five" * 2)
+// → NaN
+
+console.log(false == 0)
+// → true
+```
+
+No primeiro exemplo, o JS converteu ```null``` para 0. No segundo exemplo, ele converteu "5" (string) para 5 (número). No terceiro exemplo, como o sinal de adição pode ser utilizado para a concatenação, é exatamente isso que o JS faz, convertendo o 1 (número) para "1" (string), gerando a expressão "51". No quarto exemplo, como não é possível realizar uma operação matemática com uma string, o JavaScript retorna ```NaN```. Por último, o JS converte 0 para false, retornando true.
+
+Quando comparamos duas expressões usando ```==```, o resultado é fácil de ser previsto: ele retornará ```true``` caso os dois lados sejam iguais, e caso não, retornará ```false```. No entanto, em alguns casos específicos, quando são comparados dois tipos de dados diferentes, o JavaScript utiliza uma série de regras bastante confusas para realizar a comparação final.
+
+```
+console.log(null == undefined);
+// → true
+
+console.log(null == 0);
+// → false
+```
+
+O comportamento acima pode ser útil em algumas ocasiões, principalmente quando queremos comparar se alguns valores que estamos buscando são diferentes de null e undefined.
+
+Expressões como ```0 == false``` e ```"" == false``` retornam ```true```, por causa da conversão automática do JavaScript. O 0 é transformado em false e "" também, de forma que ```false == false``` retorna ```true```.
+
+**Quando não queremos que o JS realize essa conversão**, podemos utilizar os operadores ```===``` e ```!==```, que significam _precisamente igual a_ e _precisamente diferente de_, de forma que o tipo de dado também será comparado. Dessa forma, ```0 === false``` retornará ```false```.
+
+### Curto-circuito nos operadores lógicos
+
+Como visto anteriormente, quando usamos a expressão ```||``` para operações lógicas, ela irá avaliar a primeira expressão e, caso ela retorne true, o JS irá retornar true. Se retornar false, o JS irá avaliar a segunda expressão, e só retornará true se a segunda expressão for true, do contrário, retornará false.
+
+Mas e quando fazemos operações lógicas com expressões não lógicas? Veja o exemplo abaixo:
+
+```console.log("Victor" || "Gustavo");```
+
+Estamos comparando duas strings. Nesse caso, como o JS faria para retornar true ou false? Na verdade, o **JS não retorna true ou false, e sim a própria expressão**. No caso acima, será impressa no console a string "Victor", porque foi a primeira a ser avaliada e, como não é possível retornar true ou false, o JS imediatamente a retorna.
+
+Caso a primeira expressão seja convertida para ```false```, então o JS irá retornar a segunda expressão:
+
+```
+console.log(null || "Gustavo");
+// → Gustavo
+```
+
+Isso pode ser extremamente útil em situações onde queremos retornar um valor diferente caso a primeira string seja vazia, uma vez que "" pode ser convertido para ```false```.
+
+Também podemos fazer o mesmo para o operador ```&&```, que retornará sempre o contrário:
+
+```
+console.log("Victor" && "Gustavo");
+// → "Gustavo"
+
+console.log(null && "Gustavo");
+// → null
+```
+
+Três valores são convertidos para ```false``` pelo JS, são eles: 0, NaN e "" (string vazia). A partir disso, podemos construir nossos programas utilizando desses "curtos-circuitos".
