@@ -1,4 +1,4 @@
-## 1.1 The Pyhton programing language
+## 1.1 The Python programing language
 
 Python é uma linguagem de programação de alto nível, assim como C, C++ e Java, que são outras linguagens de programação bastante famosas. 
 
