@@ -61,3 +61,31 @@ Fazer o _debugging_ é uma atividade essencial na vida de qualquer programador, 
 - **Formal language**: é a linguagem utilizada na padronização de alguma coisa, como a escrita de expressões matemáticas e fórmulas químicas.
 
 Enquanto a linguagem natural permite ambiguidades e metáforas, a linguagem formal é extremamente literal. Em um exemplo tosco, quando dizemos em português **"Aquela menina é uma gata"**, entendemos que ela é bonita, apesar das palavras serem diferentes. Em uma linguagem formal, se dissermos que uma menina é uma gata, a sentença seria interpretada de forma literal, classificando a menina como um animal gato fêmea.
+
+Linguagens de programação são **linguagens formais**, incluindo a que estamos estudando, o Python.
+
+É importante destacar que todas as linguagens formais, estando aqui incluídas as linguagens de programação e, consequentemente, o Python, possuem uma **sintaxe muito restrita**, de forma que o erro de sintaxe é um dos mais comuns (logo acima, _syntax error_).
+
+Linguagens formais possuem dois detalhes de sintaxe muito importantes: os **tokens**, que são representações de uma linguagem, e a estrutura, que é a forma como os tokens são organizados.
+
+Por exemplo: ```2 + 2 = 4``` possui a sintaxe matemática correta, enquanto ```2 + = 4$``` não é correto, pois o sinal de adição implica a presença de dois números e, até o momento em que este resumo está sendo escrito, ```$``` não possui valor matemático. Poderíamos, portanto, dizer que ```$``` não é um token válido da representação matemática.
+
+Vejamos outros exemplos de sintaxe incorreta:
+
+- **M3U N0M3 3 V1CT0R**: Neste exemplo, estamos utilizando uma sentença em português (linguagem natural). Ela é considerada inválida porque os tokens numéricos utilizados não são válidos no lugar das letras.
+- **Nome meu Víctor é**: Aqui, temos um problema de estrutura. Apesar de todos os tokens utilizados serem válidos, a forma como eles estão dispostos tornam a sintaxe incorreta.
+
+Portanto, até aqui notamos que as linguagens naturais e formais são bastantes diferentes. Destacando as principais diferenças entre essas linguagens em uma lista, temos:
+
+- **Ambiguidade**: enquanto em linguagens naturais a ambiguidade é muito comum, nas linguagens formais ela é praticamente inexistente. Se uma sentença diz uma coisa, ela significa exatamente aquilo que é dito.
+- **Redundância**: para reduzir as ambiguidades e desentendimentos, as linguagens naturais são muito redundantes e, portanto, bastante verbosas. As linguagens formais não são redundantes pois não são ambíguas, o que faz delas menos verbosas.
+- **Literalidade**: enquanto nas linguagens naturais temos metáforas, poemas e todos os jogos de palavras, nas linguagens formais todas as sentenças são absolutamente literais, sem espaço para interpretações duplas.
+
+## 1.5 The first program
+
+Toda vez que programamos em uma linguagem nova, nosso primeiro programa é um "Hello, world". Em Python 3, o mesmo é feito através de:
+```print('Hello, world!')```
+
+Os parênteses indicam que ```print``` é uma função. Todos esses comandos devem ser feitos no interpretador Python, o qual, no Windows, só pode ser obtido quando instalado através do site [Python.org](https://www.python.org/)
+
+### Fim das anotações do Capítulo 1.
