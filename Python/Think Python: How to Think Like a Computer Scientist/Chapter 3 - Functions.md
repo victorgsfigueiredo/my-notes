@@ -193,3 +193,188 @@ Certifique-se de que você está utilizando um editor de texto que cuide da iden
 
 Fora isso, **nunca se esqueça de salvar seu programa**! Muitos programadores, quando enfrentam um erro, tentam corrigí-lo mas esquecem de salvar o programa antes de executá-lo, o que os faz perder várias horas debugando um código que possivelmente já havia sido resolvido! Se você não tem certeza de que o seu código está sendo salvo, coloque algo como ```print('olá')``` na primeira linha do seu programa. Se você não ver o ```olá``` ao executá-lo, significa que ele não está sendo salvo!
 
+## 3.16 Exercises
+
+### Exercise 3.3
+Python provides a built-in function called ```len``` that returns the length of a string, so the value of ```len('allen')``` is 5.
+
+Write a function named ```right_justify``` that takes a string named as a parameter and prints the string with enough leading spaces so that the last letter of the string is in column 70 of the display.
+
+```python3
+>>> right_justify('allen')
+                                                                 allen
+```
+
+Resposta:
+
+```python3
+def right_justify(text):
+    print(' ' * (70 - len(text)) + text)
+```
+
+### Exercise 3.4
+
+A function object is a value you can assign to a variable or pass as an argument. For example, ```do_twice``` is a function that takes a function object as an argument and calls it twice:
+
+```python3
+def do_twice(f):
+    f()
+    f()
+```
+
+Here’s an example that uses ```do_twice``` to call a function named ```print_spam``` twice.
+
+```python3
+def print_spam():
+    print('spam')
+
+do_twice(print_spam)
+```
+
+1. Type this example into a script and test it.
+
+_Testado! Funciona perfeitamente._
+
+2. Modify ```do_twice``` so that it takes two arguments, a function object and a value, and calls the function twice, passing the value as an argument.
+
+```python3
+def do_twice(f, value):
+    f(value)
+    f(value)
+```
+
+3. Write a more general version of ```print_spam```, called ```print_twice```, that takes a string as a parameter and prints it twice.
+
+```python3
+def print_twice(string):
+    print(string)
+    print(string)
+    
+```
+
+4. Use the modified version of ```do_twice``` to call ```print_twice``` twice, passing 'spam' as an argument.
+
+```python3
+def do_twice(f, value):
+    f(value)
+    f(value)
+    
+
+def print_twice(string):
+    print(string)
+    print(string)
+    
+do_twice(print_twice, 'spam')
+```
+
+5. Define a new function called ```do_four``` that takes a function object and a value and calls the function four times, passing the value as a parameter. There should be only two statements in the body of this function, not four.
+
+Minha resposta foi:
+
+```python3
+def do_four(f, value):
+    for x in range(4):
+        f(value)
+    
+
+def print_twice(string):
+    print(string)
+    print(string)
+    
+do_four(print_twice, 'spam')
+```
+
+A resposta do livro foi:
+
+```python3
+def do_twice(f, arg):
+    f(arg)
+    f(arg)
+
+def print_twice(arg):
+    print arg
+    print arg
+
+def do_four(f, arg):
+    do_twice(f, arg)
+    do_twice(f, arg)
+
+do_four(print_twice, 'spam')
+```
+
+Ambos os códigos imprimem o mesmo resultado.
+
+### Exercise 3.5
+
+This exercise can be done using only the statements and other features we have learned so far.
+
+1. Write a function that draws a grid like the following:
+
+![grade](https://i.ibb.co/YQst13R/image.png)
+
+```python3
+def draw_grid():
+    arrow_mark = '+'
+    arrow_body = '-' * 4
+    column_mark = '|'
+    column_body = ' ' * 4
+    
+    def entire_arrow():
+        print(arrow_mark, arrow_body, arrow_mark, arrow_body, arrow_mark)
+        
+    def entire_column():
+        print(column_mark, column_body, column_mark, column_body, column_mark)
+        
+
+    entire_arrow()
+    
+    for x in range(4):
+        entire_column()
+    
+    entire_arrow()
+    
+    for x in range(4):
+        entire_column()
+        
+    entire_arrow()
+    
+draw_grid()
+```
+
+2. Write a function that draws a similar grid with four rows and four columns.
+
+```python3
+def draw_grid():
+    arrow_mark = '+'
+    arrow_body = '-' * 4
+    column_mark = '|'
+    column_body = ' ' * 4
+    
+    def entire_arrow():
+        print(arrow_mark, arrow_body, arrow_mark, arrow_body, arrow_mark, arrow_body, arrow_mark)
+        
+    def entire_column():
+        print(column_mark, column_body, column_mark, column_body, column_mark, column_body, column_mark)
+        
+
+    entire_arrow()
+    
+    for x in range(4):
+        entire_column()
+    
+    entire_arrow()
+    
+    for x in range(4):
+        entire_column()
+        
+    entire_arrow()
+    
+    for x in range(4):
+        entire_column()
+        
+    entire_arrow()
+    
+draw_grid()
+```
+
+Após ler a resposta [clicando aqui](https://greenteapress.com/thinkpython/code/grid.py), resolvi reescrever o código para uma nova versão da questão 2.
