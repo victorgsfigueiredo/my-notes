@@ -377,4 +377,4 @@ def draw_grid():
 draw_grid()
 ```
 
-Após ler a resposta [clicando aqui](https://greenteapress.com/thinkpython/code/grid.py), resolvi reescrever o código para uma nova versão da questão 2.
+Resposta do livro [clicando aqui](https://greenteapress.com/thinkpython/code/grid.py).
