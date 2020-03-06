@@ -80,3 +80,31 @@ O Python sempre lerá um programa de cima para baixo. Entretanto, uma função f
 Isso pode soar simples, até você lembrar que a função chamada pode chamar outra função. E essa última ainda pode chamar outra!
 
 **A lição que fica é: quando se tem um programa, nem sempre o melhor é ler de cima para baixo. O melhor mesmo é seguir o flow of execution.**
+
+## 3.8 Parameters and arguments
+
+Até agora, nós declaramos apenas funções que não utilizam argumentos. Mas para declarar uma função com um argumento, é bastante simples:
+
+![Função print_twice](https://i.ibb.co/MZb6QW4/image.png)
+
+Aqui, passamos um argumento ```x``` para a função. Quando a função for chamada, ```x``` será substuído pelo valor que o _caller_ a atribui, como se fosse uma variável. Ou seja: **não importa o nome do argumento, e sim o valor atribuído pelo *caller***. O nome do argumento é necessário para ser utilizado na declaração da função, mas seu uso termina ali.
+
+Na função acima, o argumento será printado duas vezes. É importante destacar que o argumento pode ser qualquer coisa, como uma variável, uma operação aritmética e até mesmo um valor booleano.
+
+![Função com variável](https://i.ibb.co/SBDP806/image.png)
+
+## 3.9 Variables and parameters are local
+
+Quando declaramos variáveis e parâmetros dentro de uma função, esses valores existem apenas **dentro da função**.
+
+```python3
+def cat_twice(part1, part2):
+    cat = part1 + part2
+    print_twice(cat)
+    
+```
+
+Na função acima, a variável ```cat``` existe apenas dentro dessa função. Se após essa função tentarmos ```print(cat)```, obteremos ```NameError: name 'cat' is not defined```
+
+## 3.10 Stack diagrams
+
