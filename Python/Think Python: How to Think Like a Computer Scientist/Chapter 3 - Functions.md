@@ -49,3 +49,34 @@ Vejamos alguns dos exemplos mais comuns que podemos utilizar:
 **A documentação completa das Math functions pode ser encontrada [clicando aqui](https://docs.python.org/3/library/math.html?highlight=math%20module#module-math)**.
 
 ## 3.4 Composition
+
+Até agora, vimos vários componentes do Python de forma isolada, sem combiná-los de verdade. Aqui, o que queremos dizer é que você pode misturar funções, operadores aritméticos e variáveis da forma que você quiser, desde que o valor à esquerda seja uma variável.
+
+- ```x = math.sin(degrees / 360.0 * 2 * math.pi)```
+- ```x = math.exp(math.log(x+1))```
+
+## 3.5 Adding new functions
+
+Até agora, utilizamos apenas funções nativas do Python. Mas também é possível adicionar novas funções ao nosso programa. Vejamos um exemplo:
+
+![Declarando a primeira função no Python](https://i.ibb.co/vkmwhHp/image.png)
+
+A primeira linha da declaração é chamada de **header**. Nela, possuímos a keyword ```def```, que indica que naquela linha começa a declaração de uma função. Logo em seguida, temos ```mostrar_letra```, que é o nome da função. E então, os parênteses vazio ```()```, que indicam que aquela função não recebe nenhum argumento. Por fim, o **header** termina com dois pontos.
+
+Após o **header**, vem o **body**, com todas as declarações, variáveis e argumentos daquela função. Por convenção, todo o **body** deve ser identado com quatro espaços. Após terminarmos a declaração do **body**, devemos deixar uma linha identada em branco, a qual indicará que a declaração daquela função terminou.
+
+No exemplo acima, chamamos ```mostrar_letra()``` para vermos o resultado da função.
+
+## 3.6 Definitions and uses
+
+Esta pequena seção diz que, para usar uma função, você deve declará-la primeiro. Ou seja, não se pode chamar ```mostrar_letra()``` sem antes definí-la.
+
+Entretanto, veremos como funciona o **flow of execution** em seguida.
+
+## 3.7 Flow of execution
+
+O Python sempre lerá um programa de cima para baixo. Entretanto, uma função funciona como um detonador nessa lógica: quando uma função é chamada, o Python volta o programa até onde a função foi declarada e executa todas as suas declarações.
+
+Isso pode soar simples, até você lembrar que a função chamada pode chamar outra função. E essa última ainda pode chamar outra!
+
+**A lição que fica é: quando se tem um programa, nem sempre o melhor é ler de cima para baixo. O melhor mesmo é seguir o flow of execution.**
