@@ -108,3 +108,88 @@ Na função acima, a variável ```cat``` existe apenas dentro dessa função. Se
 
 ## 3.10 Stack diagrams
 
+Com o objetivo de manter o entendimento do código, uma vez que algumas variáveis são locais e outras não, podemos criar um _stack diagram_. Ele indicará exatamente quais variáveis e funções estão inseridas no ```---main---``` (nome especial dado ao nível mais superior do _stack_) e quais estão inseridas localmente, dentro de uma função.
+
+O Console Python também disponibiliza um **traceback** quando ocorre algum erro relacionado ao _stack_, isto é, quando se tenta invocar uma variável local em uma função diferente, por exemplo. Veja o código abaixo:
+
+```python3
+def print_twice(bruce):
+    print(bruce)
+    print(bruce)
+    print(cat)
+    
+def cat_twice(part1, part2):
+    cat = part1 + part2
+    print_twice(cat)
+    
+cat_twice('Menin', 'ix');
+```
+
+Em ```print_twice(x)```, na terceira linha do **body**, temos ```print(cat)```, cuja finalidade é mostrar o ```cat``` definido na segunda função do stack, ```cat_twice(part1, parte2)```. Como ```cat``` é uma variável local, temos um erro de stack que é retornado, juntamente a um **traceback**.
+
+![Erro com traceback](https://i.ibb.co/Z8Bgy8J/image.png)
+
+Veja que ele imprime um erro com todas as funções chamadas, traçando o caminho até finalmente alcançar um erro, e ainda retorna a linha onde está o erro (neste caso, _line 4_).
+
+Olhando um _stack diagram_ estritamente, obtemos:
+
+![Stack diagram](https://i.ibb.co/Kq2yFrf/image.png)
+
+Essa imagem foi retirada do livro Think Python. Nele, ao invés dos atributos ```'Menin'``` e ```'ix'``` que usamos para a função ```cat_twice(part1, part2)``` foram substuídos por ```'Bing tiddle '``` e ```'tiddle bang.'```.
+
+Note como o _stack diagram_ representa todas as camadas encapsuladas.
+
+## 3.11 Fruitful functions and void functions
+
+Até agora, todas as funções que vimos **não retornam nenhum valor**. O autor chama essas funções de _void functions_, pois, por não retornarem nenhum valor, o resultado delas não pode ser armazenado em uma variável.
+
+Se tentarmos armazenar o valor da função ```print_twice``` numa variável, obteríamos o seguinte:
+
+![Tentando armazenar função sem retorno numa variável](https://i.ibb.co/4MxcMx1/image.png)
+
+Ao pedirmos para o console Python mostrar o armazenamento de ```eu```, obtemos o valor ```None```. Este é um valor especial, e tem seu tipo próprio:
+
+![None Type](https://i.ibb.co/McfG9h8/image.png)
+
+Quando uma função tem retorno, o autor as chama de _fruitful functions_, pois é possível utilizar seus retornos para performar outras ações dentro do nosso programa.
+
+## 3.12 Why functions?
+
+Até esse momento, talvez não esteja claro a importância de usar funções em um código. Mas funções são peças primordiais de qualquer programa, em qualquer linguagem, pelas seguintes razões:
+
+- Diminuição do programa ao diminuir a quantidade de código repetido: isto é, se você precisa usar o mesmo código duas vezes, você pode colocá-lo numa função e então apenas chamá-la duas vezes.
+- Facilidade no _debugging_, uma vez que se um erro acontecer, você pode analisar função por função até encontrar o problema, o que é muito mais fácil do que procurar um pequeno erro em meio a um código solto e repetitivo.
+- Facilidade na alteração do programa, uma vez que, conforme o exemplo um, se você quiser alterar a funcionalidade da função naqueles dois lugares, basta alterar o **body** da função.
+- Funções bem-feitas são úteis em vários programas diferentes. Você pode reaproveitar uma função em um novo programa.
+
+## 3.13 Importing with ```from```
+
+Existem duas maneiras de se importar um módulo. A primeira já vimos, através do ```import math```. Com isso, importamos o módulo math para o nosso código.
+
+A outra maneira é usando o ```from```:
+
+```python3
+>>> from math import pi
+
+>>> print(pi)
+3.141592653589793
+
+```
+
+Usando o ```from```, importamos um único objeto do módulo math. Portanto, ```pi``` passa a se comportar como uma variável com o valor do objeto ```math.pi```. Ainda mais: podemos usar ```*``` para importar **todo o módulo** usando o ```from```:
+
+```python3
+>>> from math import *
+
+>>> cos(pi)
+-1.0
+```
+
+A vantagem é que, com isso, você consegue **eliminar o _dot notation_**. A desvantagem é que pode haver conflito de nomes com variáveis, nomes de funções e outros objetos de outros módulos que possivelmente podem ser importados. Cabe ao programador decidir qual a melhor maneira de manter seu código organizado, conciso e sem erros.
+
+## 3.14 Debugging
+
+Certifique-se de que você está utilizando um editor de texto que cuide da identação para você, uma vez que no Python ela é tão importante! Debugar os 4 espaços de identação exigidos pelo Python é extremamente difícil, uma vez que eles são tão comuns. Portanto, o editor de texto é fundamental para que esse tipo de erro não aconteça.
+
+Fora isso, **nunca se esqueça de salvar seu programa**! Muitos programadores, quando enfrentam um erro, tentam corrigí-lo mas esquecem de salvar o programa antes de executá-lo, o que os faz perder várias horas debugando um código que possivelmente já havia sido resolvido! Se você não tem certeza de que o seu código está sendo salvo, coloque algo como ```print('olá')``` na primeira linha do seu programa. Se você não ver o ```olá``` ao executá-lo, significa que ele não está sendo salvo!
+
