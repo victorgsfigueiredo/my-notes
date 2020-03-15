@@ -43,3 +43,69 @@ makeNoise();
 ```
 Funções como ```makeNoise()``` não possuem retorno, isto é, quando são executadas, após a execução das instruções em seu interior, irão retornar ```undefined```. Similarmente, funções que possuem apenas a palavra ```return```, sem especificar o que será retornado, também irão retornar ```undefined```.
 
+### Variáveis e escopo
+
+Imagine um código como uma cebola. Uma cebola tem uma camada grande, que recobre todas as outras, e então suas subcamadas. Assim como a cebola, o código também possui subcamadas. Chamamos essas subcamadas de **escopo**.
+
+Escopo nada mais é do que um espaço isolado do programa onde as instruções e variáveis declaradas existirão apenas ali dentro. Mas quais atividades da programação geram escopo? As mais comuns são funções, loops e condicionais. Vejamos o código abaixo:
+
+```javascript
+let x = 1;
+
+if(true) {
+   let y = 2;
+   }
+
+console.log(x);
+// -> 1
+
+console.log(y);
+// -> y is not defined
+```
+Note que, pela variável ```y``` ter sido declarada dentro de um ```if```, isso gerou um escopo e, portanto, a variável ```y``` existe _apenas_ dentro do escopo, não podendo ser acessada de fora.
+
+E as variáveis declaradas fora do escopo, poderiam ser acessadas dentro dele? Vejamos:
+
+```javascript
+let x = 1;
+
+if(true) {
+  console.log(x)
+  }
+  
+// -> 1
+```
+A resposta é: **sim**. Apesar de variáveis declaradas dentro de um escopo não serem vistas fora dele, todas as variáveis declaradas em escopos superiores podem ser acessadas. Neste caso, a variável ```x``` foi declarada no **escopo global**, o qual pode ser acessado de qualquer nível do programa.
+
+Antes de 2015, na versão anterior do JavaScript, apenas funções produziam escopo. Naquela época, para se declarar variáveis, utilizávamos a sentença ```var```. Essa sentença pode ser utilizada até hoje, apesar de não ser muito comum. Ao fazermos uso dela, ela ignora o escopo em que está e passa a pertencer ao escopo global. Vejamos:
+
+```javascript
+if(true) {
+  var escopo = 'se é var, então é global';
+  }
+  
+console.log(escopo);
+// -> se é var, então é global
+```
+
+Se usássemos ```let``` no lugar de ```var``` no código acima, teríamos um retorno diferente:
+
+```javascript
+console.log(escopo);
+// -> escopo is not defined
+```
+
+Quando fazemos um loop ```for```, por exemplo, e usamos var, essa variável passará a existir no escopo global, apesar de ser inútil após a execução do loop:
+
+```javascript
+for(var i = 0; i < 3; i++) {
+  console.log(i);
+  }
+  
+console.log(i)
+// -> 5
+```
+
+**Em resumo**: variáveis declaradas com ```let``` e ```const``` pertencem ao escopo onde foram declaradas, enquanto ```var``` sempre pertencerá ao escopo global.
+
+
