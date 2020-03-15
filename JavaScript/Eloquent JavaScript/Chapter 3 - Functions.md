@@ -109,3 +109,34 @@ console.log(i)
 **Em resumo**: variáveis declaradas com ```let``` e ```const``` pertencem ao escopo onde foram declaradas, enquanto ```var``` sempre pertencerá ao escopo global.
 
 
+### Nested scope
+
+Como já explicado anteriormente, vimos que temos escopos aninhados e hierárquicos. Vejamos a função abaixo:
+
+```javascript
+  function bolo(quantidadeDeBolos) {
+    function ingrediente(quantidade, unidade, nome) {
+      let quantidadeTotal = quantidade * quantidadeDeBolos;
+      document.write(`${quantidadeTotal} ${unidade} ${nome} <br>`);
+    }
+    ingrediente(3, 'xícaras de chá', 'farinha de trigo');
+    ingrediente(2, 'xícaras de chá', 'açúcar');
+    ingrediente(3, '', 'ovos');
+    ingrediente(200, 'mL', 'leite');
+    ingrediente(4, 'colheres de sopa', 'manteiga');
+    ingrediente(1, 'colher de sopa', 'fermento químico em pó');
+
+  }
+
+  bolo(2);
+  // -> 2, neste caso, é a quantidade de bolos que quero. Neste caso, será exibido a quantidade de ingredientes necessário para se fazer dois bolos.
+  ```
+  
+Veja, na função acima, que a variável ```quantidadeDeBolos``` pode ser acessada dentro da função ```ingrediente```, que cria um subescopo. Isso só prova que os escopos sempre poderão acessar as informações dos escopos superiores, e todos os escopos sempre podem acessar o escopo global.
+
+Isso significa que os escopos estão aninhados. Existem vários escopos, um dentro do outro, de forma que eles formam uma "cebola" de escopos. É isso que chamamos de _nested scope_.
+
+Se você não conseguir entender esse conceito de forma completa, uma ótima aula no YouTube explicando pode ser encontrada [neste link](https://www.youtube.com/watch?v=dHYhMP8ESuk).
+
+### Functions as values
+
