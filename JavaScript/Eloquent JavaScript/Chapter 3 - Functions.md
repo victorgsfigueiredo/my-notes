@@ -140,3 +140,115 @@ Se você não conseguir entender esse conceito de forma completa, uma ótima aul
 
 ### Functions as values
 
+Neste pequeno pedaço do capítulo, é explicado que uma função também pode ser tratada como uma variável. Isso significa que podemos utilizá-la como valor e, até mesmo, como um parâmetro de uma outra função. Isso permite atividades bastante avançadas que, de outra forma, não seriam possíveis.
+
+Este tópico será explorado, essencialmente, no Capítulo 5.
+
+### Declaration notation
+
+Existe um jeito mais fácil de se escrever uma função. Chama-se **declaração de função**:
+
+```javascript
+function square(x) {
+  return x * x;
+  }
+```
+No caso acima, a palavra ```function``` é usada primeiro e ```square``` é o nome da função, o qual também poderá se comportar como uma variável, conforme dissemos no tópico _Functions as values_. É uma forma menos verbosa, mais fácil e não requer ponto e vírgula após a sua conclusão.
+
+Também oferece outra vantagem:
+
+```javascript
+console.log('O futuro diz: ' + future());
+// -> 'O futuro diz Olá!'
+
+function future() {
+  return 'Olá!';
+  }
+```
+O código acima funciona porque quando uma função é declarada dessa forma, mesmo que seja declarada depois de seu uso, ela será movida para o topo do escopo. Isso é bastante útil porque você não precisa se preocupar com o lugar em que a função será declarada, de forma que você poderá colocá-la no lugar que a faça ter mais significado e deixar o código o mais legível possível.
+
+### Arrow functions
+
+Existe uma terceira forma de declarar funções, além das variáveis e da notação. Ela se chama _arrow function_ e é declarada da seguinte maneira:
+
+```javascrit
+const power = (base, exponent) => {
+  let result = 1;
+  for(let i = 0; i < exponent; i++) {
+    result *= base;
+    }
+  return result;
+  };
+```
+A função acima recebe o nome ```power```, onde ```base``` e ```exponent``` são seus parâmetros. Possuímos a flecha ```=>``` e, em seguida, o corpo da função. 
+
+Podemos ler essa expressão como "_para esses parâmetros, retorne este body_".
+
+Se tivermos funções com apenas um parâmetro, podemos omitir os parênteses. Se ela não tem parâmetro nenhum, colocamos parênteses vazios.
+
+```javascript
+const square = x => { return x * x; };
+
+const pling = () => { console.log('pling!'); };
+```
+
+Se tivermos apenas um parâmetro e apenas um retorno, podemos ser ainda menos verbosos e omitir o termo ```return```. As duas funções abaixo funcionam e fazem exatamente a mesma coisa:
+
+```javascript
+const square1 = x => { return x * x; };
+
+const square2 = x => x * x;
+```
+Como dito anteriormente, devemos ler esse tipo de função como "_para esses parâmetros, retorne este body_". Portanto, na função ```square2``` acima, lemos "_para o parâmetro x, retorne x * x_".
+
+### The call stack
+
+Vejamos o seguinte programa, que faz algumas chamadas de funções:
+
+```javascript
+function greet(who) {
+  console.log('Hello, ' + who);
+  }
+
+greet('Victor');
+
+console.log('Bye!');
+```
+
+Quando a função ```greet()``` é chamada, o compilador pula de onde está para o início da função declarada (linha 2 do código acima). Lá, ele executará o ```console.log```, e, após terminar, voltará para a função e, vendo que não há nenhuma outra função, encerra sua execução. Depois disso, o compilador volta para onde a função foi chamada e continua a executar o programa a partir daquele ponto, sendo que, logo em seguida, ele irá chamar a função ```console.log('Bye!');```.
+
+Esquematizando, teríamos algo como:
+```
+não está na função
+o programa chama a função greet()
+  o compilador entra na função
+    o compilador executa console.log
+  o compilador volta para a função e a encerra
+o compilador volta para onde estava e continua de onde parou
+não está na função
+  o compilador executa console.log('bye!')
+não está na função
+```
+
+Para fazer tudo isso, o computador precisa armazenar o caminho que ele está percorrendo e para onde precisará retornar, para que assim ele possa fazer a sua execução. O lugar onde ele faz esse armazenamento chama-se **call stack**.
+
+Esse armazenamento ocupa memória do nosso computador. É por isso que, quando fazemos programas que precisam montar um _call stack_ exageradamente grande, o computador retorna um erro como "Call stack exceeded size" ou "Too much recursion". É o que acontece quando pedimos para o computador responder uma das dúvidas mais frequentes da biologia humana:
+
+```javascript
+// Quem veio primeiro, o ovo ou a galinha?
+function ovo() {
+  return galinha();
+  }
+
+function galinha() {
+  return ovo();
+  }
+
+console.log(ovo());
+// -> ??
+```
+
+No caso acima, se o computador não tivesse um mecanismo de freio devido às suas limitações de memória, ele montaria um _call stack_ infinito. Como isso não é possível, ele retorna o erro que dissemos.
+
+### 
+
