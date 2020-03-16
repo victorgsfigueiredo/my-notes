@@ -171,7 +171,7 @@ O código acima funciona porque quando uma função é declarada dessa forma, me
 
 Existe uma terceira forma de declarar funções, além das variáveis e da notação. Ela se chama _arrow function_ e é declarada da seguinte maneira:
 
-```javascrit
+```javascript
 const power = (base, exponent) => {
   let result = 1;
   for(let i = 0; i < exponent; i++) {
@@ -250,5 +250,80 @@ console.log(ovo());
 
 No caso acima, se o computador não tivesse um mecanismo de freio devido às suas limitações de memória, ele montaria um _call stack_ infinito. Como isso não é possível, ele retorna o erro que dissemos.
 
-### 
+### Optional arguments
+
+Vejamos a função abaixo:
+```javascript
+const square = x => x * x;
+
+console.log(square(5, 'hello world', 10);
+// -> 25
+```
+
+O código acima funciona perfeitamente. Veja: a função ```square()``` tem apenas um parâmetro definido, ```x```, mas na sua chamada, são dados três argumentos. Por que, então, funciona?
+
+O JavaScript é um grande camarada. Ele simplesmente irá ignorar os argumentos extras dados, utilizando apenas o primeiro. De forma semelhante, se um parâmetro estiver definido mas não for dado um valor a ele, o JavaScript irá, de forma automática, atribuir ```undefined``` a esse parâmetro:
+
+```javascript
+console.log(square());
+// -> NaN
+```
+
+No exemplo acima, obtemos ```NaN```, porque ```undefined * undefined``` é ```NaN``` (not a number).
+
+O que falamos é muito útil, uma vez que o JavaScript pode simplesmente ignorar argumentos extras e atribuir ```undefined``` a argumentos faltantes. Mas pode existir um ponto negativo: quando você comete um deslize e declara um argumento a mais, ou até mesmo se deixa de declarar um argumento, vai ser muito difícil você localizar esse erro, uma vez que a própria linguagem faz essa atribuição para gente. Acima, no ```square()``` sem argumento, obtivemos ```NaN``` que não é, necessariamente, um erro.
+
+Também existe uma funcionalidade muito útil: **se você utiliza ```=``` após um parâmetro durante a declaração da função seguido de uma expressão, essa expressão será atribuída ao parâmetro caso ele não seja declarado**.
+
+Por exemplo:
+
+```javascript
+function power(base, exponent = 2) {
+  let result = 1;
+  for(let i = 0; i < exponent; i++) {
+    result *= base;
+    }
+  return result;
+  }
+```
+
+Se agora utilizarmos o 2 quando não recebermos o parâmetro, obteremos:
+
+```javascript
+console.log(power(2, 3));
+// -> 8
+
+console.log(power(2));
+// -> 4
+```
+No primeiro exemplo, como atribuímos ```3``` ao parâmetro ```exponent```, a potência foi executada corretamente. Entretanto, no código abaixo, não declaramos um expoente. Mas, como deixamos uma instrução na função dizendo que, _caso não haja a declaração de um parâmetro, atribua 2_, ele faz a potência e se comporta como a função ```square()```, fazendo ```2 ^ 2```.
+
+
+### Closure
+
+Vejamos o código abaixo:
+
+```javascript
+function wrapValue(n) {
+  let local = n;
+  return () => local;
+  }
+
+let wrap1 = wrapValue(1);
+let wrap2 = wrapValue(2);
+
+console.log(wrap1());
+// -> 1
+
+console.log(wrap2());
+// -> 2
+```
+
+Perceba que há uma função que retorna uma função, a qual fica armazenada em uma variável. Mas agora vem a pergunta: como a função ```wrap1()``` consegue acessar a variável ```local```, sendo que ela é uma função diferente e ```local``` está declarada em um escopo diferente?
+
+A resposta é um pouco complicada, mas vamos lá: quando você chama uma função, ela cria um escopo próprio. No entanto, quando ela é criada dentro de outro escopo, no momento em que ela é chamada, ela passa a ter acesso também ao escopo onde foi declarada. Isto é, **a função não acessa o escopo onde é chamada, e sim onde foi criada**. Essa capacidade, portanto, de acessar variáveis locais de um escopo diferente chama-se _closure_.
+
+No caso acima, temos uma função que retorna uma função, e quando a função retornada é chamada, ela cria um escopo **dentro do escopo local** da função que a retorna. Talvez seja complicado entender na primeira vez, mas se ficares com dúvida, releia até entender.
+
+### Recursion
 
