@@ -327,3 +327,78 @@ No caso acima, temos uma função que retorna uma função, e quando a função 
 
 ### Recursion
 
+Imagine uma função que chame a si própria. Isso é possível e perfeitamente razoável de ser feito. Quando uma função chama a si mesmo, a chamamos **função recursiva**.
+
+Vejamos abaixo uma alternativa recursiva para a função ```power()```:
+
+```javascript
+function power(base, exponent) {
+  if(exponent == 0) {
+    return 1;
+  } else {
+    return base * power(base, exponent - 1);
+  }
+}
+
+power(2, 4);
+// -> 16
+```
+
+A forma recursiva da função ```power``` se aproxima muito mais da forma como matemáticos veêm potências. Logo, podemos dizer que as alternativas recursivas aos loopings são muito mais elegantes e lógicas para os seres humanos. Dito isso, por que não utilizamos a recursão para tudo?
+
+Porque a recursão pode ser até 3 vezes mais demorada do que um simples loop. Isso gera uma certa discussão: o programa deve ser mais amigável aos humanos ou mais amigáveis às máquinas (eficiente)? Essa pergunta deve ser respondida pelo programador que está codando, ao qual caberá equilibrar esses dois pontos.
+
+Obviamente, a recursão não é apenas uma alternativa ruim aos loops. Existem problemas que realmente são melhor resolvidos através da recursão. Veja o desafio abaixo:
+
+_By starting from the number 1 and repeatedly either adding 5 or multiplying by 3, an infinite set of numbers can be produced. How would you write a function that, given a number, tries to find a sequence of such additions and multiplications that produces that number?_
+
+E a resposta a esse desafio:
+
+```javascript
+function findSolution(target) {
+  function find(current, history) {
+    if (current == target) {
+      return history;
+    } else if (current > target) {
+      return null;
+    } else {
+      return find(current + 5, `(${history} + 5)`) ||
+             find(current * 3, `(${history} * 3)`);
+    }
+  }
+  return find(1, "1");
+}
+
+console.log(findSolution(24));
+// → (((1 * 3) + 5) * 3)
+```
+
+Entender como o código acima funciona pode ser complexo em uma primeira olhada, mas conforme o estudamos, começamos a entender ele. Para facilitar nossa compreensão, vamos editar o seguinte trecho do código acima, adicionando um ```console.log```:
+
+```javascript
+// [...]
+function findSolution(target) {
+  function find(current, history) {
+    console.log(`${current} é o current. ${history} é o history.`);
+    if (current == target) {
+      return history;
+// [...]
+```
+
+O que o console nos exibiria? Veja:
+
+- 1 é o current. 1 é o history.
+- 6 é o current. (1 + 5) é o history.
+- 11 é o current. ((1 + 5) + 5) é o history.
+- 16 é o current. (((1 + 5) + 5) + 5) é o history.
+- 33 é o current. (((1 + 5) + 5) * 3) é o history.
+- 18 é o current. ((1 + 5) * 3) é o history.
+- 3 é o current. (1 * 3) é o history.
+- 8 é o current. ((1 * 3) + 5) é o history.
+- 13 é o current. (((1 * 3) + 5) + 5) é o history.
+
+"(((1 * 3) + 5) + 5)"
+
+Ou seja, o código teve que executar vários "galhos" (branches) diferentes para conseguir encontrar um resultado. Primeiro ele começou com adições de 5 e, quando chega em um número grande demais, ele substitui a última adição por uma multiplicação por 3, e assim faz até conseguir encontrar uma solução.
+
+
