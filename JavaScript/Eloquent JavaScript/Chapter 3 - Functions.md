@@ -401,4 +401,60 @@ O que o console nos exibiria? Veja:
 
 Ou seja, o código teve que executar vários "galhos" (branches) diferentes para conseguir encontrar um resultado. Primeiro ele começou com adições de 5 e, quando chega em um número grande demais, ele substitui a última adição por uma multiplicação por 3, e assim faz até conseguir encontrar uma solução.
 
+### Growing functions
 
+Um dia, um fazendeiro resolve contratar os seus habilidosos serviços de programação porque ele deseja criar um programa que mostre o inventário de animais da fazenda dele em uma página, e disse a você que o número deve conter sempre 3 casas. Isto é, ele gostaria que você construísse um programa que fizesse o seguinte _output_:
+
+```
+009 Vacas
+012 Galinhas
+```
+
+Após discutir o contrato e seus valores, vocês chegam a um acordo e, então, você passa a produzir o programa. Como resultado final, você obtém:
+
+```javascript
+function inventarioFazenda(vacas, galinhas) {
+  let vacasString = String(vacas);
+  while(vacasString.length < 3) {
+    vacasString = '0' + vacasString;
+  }
+  console.log(`${vacasString} Vacas`);
+  
+  let galinhasString = String(galinhas);
+  while(galinhasString.length < 3) {
+    galinhasString = '0' + galinhasString;
+  }
+  console.log(`${galinhasString} Galinhas`);
+}
+
+inventarioFazenda(9, 12);
+```
+
+Funciona perfeitamente e o fazendeiro fica feliz da vida com seu programa complexo e longo. Entretanto, menos de uma semana depois, o fazendeiro resolveu comprar 16 porcos e pede a você para que inclua os porcos no programa.
+
+Você, então, tem duas opções:
+
+1) Você percebe que a função que mostra o inventário tem um código praticamente igual para cada animal e, então, você copia e cola essa parte repetida, mudando os nomes para 'porcos' e adicionando o parâmetro 'porcos' à declaração da função; ou
+2) Você percebe que essa se trata de uma **growing function**, porque a cada vez que você precisa adicionar um novo animal, você precisará repetir o código, então você resolve refazer o programa para que não seja mais necessário alterar o código sempre que desejar adicionar um novo animal.
+
+Você, como o ótimo programador que é, escolhe a opção 2. Não apenas porquê dará menos trabalho, mas porque você também imagina outras situações: e se o fazendeiro resolver comprar 1000 pintinhos, como eles serão mostrados na lista com até 3 dígitos? Você precisa de um programa pouco repetitivo e mais flexível.
+
+A habilidade de perceber padrões e refazer o código para armazenar esse padrão de código numa função é uma habilidade que todo desenvolvedor de software deve possuir para ser ótimo. Você chega a essa conclusão e bola a seguinte solução:
+
+```javascript
+function animalFazenda(numero, nome, tamanhoDoNumero) {
+  let numeroString = String(numero);
+  while(numeroString.length < tamanhoDoNumero) {
+    numeroString = '0' + numeroString;
+  }
+  document.write(`${numeroString} ${nome} <br>`)
+}
+
+animalFazenda(9, 'Vacas', 3);
+animalFazenda(12, 'Galinhas', 3);
+animalFazenda(16, 'Porcos', 3);
+```
+
+Com esse código, você agora pode adicionar quantos animais quiser, e ainda pode definir número de casas que será mostrado no final! Esse, certamente, é um código muito melhor do que o primeiro.
+
+A habilidade de reconhecer padrões e adequar o código para que fique mais legível e conciso deve ser sempre desenvolvida com afinco pelo desenvolvedor.
