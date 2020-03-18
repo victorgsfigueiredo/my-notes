@@ -458,3 +458,11 @@ animalFazenda(16, 'Porcos', 3);
 Com esse código, você agora pode adicionar quantos animais quiser, e ainda pode definir número de casas que será mostrado no final! Esse, certamente, é um código muito melhor do que o primeiro.
 
 A habilidade de reconhecer padrões e adequar o código para que fique mais legível e conciso deve ser sempre desenvolvida com afinco pelo desenvolvedor.
+
+### Functions and side effects
+
+Grosseiramente, podemos dividir as funções em duas categorias: aquelas cujo propósito são seus efeitos colaterais (_side effects_) e aquelas cujo propósito são seus valores retornados.
+
+Veja, no exemplo do fazendeiro, que a função ```animalFazenda()``` é uma função de efeitos colaterais, porque a chamamos com o próposito de imprimir uma linha na tela do usuário. Já outra função que vimos anteriormente, como ```square()```, é chamada devido ao seu valor de retorno: você entrega um valor a ela e ela sempre fará e retornará a mesma coisa, independente do que seja aquele valor.
+
+Chamamos de funções puras aquelas que não acessam o escopo global e que não dependem de nada exterior para realizar sua tarefa. A função ```square()```, por exemplo, sempre se comportará do mesmo jeito, porque ela não depende de uma variável externa que pode ser alterada (uma das muitas situações que podem ocorrer).
