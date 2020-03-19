@@ -108,3 +108,67 @@ console.log(sequence);
 
 Os métodos ```push``` e ```pop``` são opostos entre si. ```push``` adiciona um item a um array, enquanto ```pop``` retira o último item da lista.
 
+### Objects
+
+Objetos são, por definição arbitrária, a declaração de um conjunto de propriedades. A forma mais comum de se criar um objeto é utilizando ```{}```:
+
+```javascript
+let matematica = {
+  halve: x => x / 2,
+  twice: x => x * 2
+};
+
+console.log(matematica.halve(2));
+// -> 1
+
+console.log(matematica.twice(2));
+// -> 4
+```
+
+Você deve nomear a propriedade, seguindo o nome com dois pontos e então o valor da propriedade, que pode ser absolutamente qualquer coisa. No exemplo acima, atribuí funções matemáticas às propriedades que eu declarei.
+
+Também é possível atribuir uma nova propriedade a um objeto com o operador ```=```:
+
+```javascript
+matematica.plusTwo = x => x + 2;
+
+matematica.plusTwo(6);
+// -> 8
+```
+
+No caso acima, se a propriedade ```plusTwo``` existir, ela será reatribuida, enquanto caso não exista, será criada.
+
+Podemos também deletar essa propriedade, apesar de isso não ser muito frequente:
+
+```javascript
+delete matematica.plusTwo;
+
+console.log(matematica.plusTwo);
+// -> undefined
+```
+
+Podemos ainda usar o operador unário ```in``` para verificar se um objeto possui uma propriedade com um nome especificado:
+
+```javascript
+console.log("plusTwo" in matematica);
+// -> false
+
+console.log("halve" in matematica);
+//-> true
+```
+
+E ainda, podemos utilizar a função ```Object.keys()``` para descobrir os nomes de todas as propriedades presentes em um objeto:
+
+```javascript
+console.log(Object.keys(matematica));
+// -> (2) ["halve", "twice"]
+```
+
+Temos também a função ```Object.assign()```, que mescla dois objetos diferentes:
+
+```javascript
+Object.assign(matematica, {oneThird: x => x / 3});
+
+console.log(Object.keys(matematica));
+// -> (3) ["halve", "twice", "oneThird"]
+```
