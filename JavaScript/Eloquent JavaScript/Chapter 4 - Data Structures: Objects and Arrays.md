@@ -172,3 +172,132 @@ Object.assign(matematica, {oneThird: x => x / 3});
 console.log(Object.keys(matematica));
 // -> (3) ["halve", "twice", "oneThird"]
 ```
+
+Seria um _array_ um objeto? A resposta é sim!
+
+```javascript
+typeof []
+// -> "object"
+```
+
+Isso significa algumas coisas interessantes. A mais legal de todas é que podemos fazer um _array_ de objetos. Isso nos permite armazenar e manipular a informação de diferentes formas criativas e interessantes! Veja o exemplo abaixo extraído do [Eloquent Javascript](https://eloquentjavascript.net/04_data.html):
+
+```javascript
+let journal = [
+  {events: ["work", "touched tree", "pizza",
+            "running", "television"],
+   squirrel: false},
+  {events: ["work", "ice cream", "cauliflower",
+            "lasagna", "touched tree", "brushed teeth"],
+   squirrel: false},
+  {events: ["weekend", "cycling", "break", "peanuts",
+            "beer"],
+   squirrel: true},
+  /* and so on... */
+];
+```
+
+### Mutability
+
+Estamos quase chegando na programação de verdade. Antes de chegar lá, temos um último conceito teórico para aprender: a mutabilidade ou imutabilidade dos valores.
+
+Até agora, vimos valores que não mudam, como números, strings e booleanos. 1 sempre será igual a 1, e 'cat' sempre será igual a 'cat'. Isto é, não temos como alterar a string 'cat' para imprimir 'rat' e ao mesmo tempo manter a igualdade entre 'cat' e 'rat'. Objetos, no entanto, se comportam diferentemente. Vejamos o exemplo abaixo.
+
+```javascript
+let object1 = {value: 10};
+let object2 = object1;
+let object3 = {value: 10};
+
+object1 == object2;
+// -> true
+
+object1 == object3;
+// -> false
+```
+
+Quando comparamos o ```object1``` e ```object2```, obtemos ```true``` porque o definimos que o ```object2``` é igual ao ```object1```. Isto é, toda vez que alteramos uma propriedade do ```object1```, o ```object2``` também será alterado. Entretanto, por que o ```object1 e 3``` são diferentes, sendo que sua declaração é exatamente igual?
+
+Bem, objetos sempre serão diferentes entre si. Apesar de terem as mesmas propriedades, eles vivem vidas separadas. Veja:
+
+```javascript
+object1.value = 15;
+
+console.log(object1.value);
+// -> 15
+
+console.log(object3.value);
+// -> 10
+```
+
+Portanto, apesar das propriedades antes serem iguais, eles não estão atrelados. Isso pode ser visto facilmente acima. É por isso que eles não são iguais.
+
+Variáveis também possuem um comportamento semelhante. A diferença é que você pode definir se elas serão mutáveis ou não. Se você quiser que uma variável seja mutável, você a declara usando a declaração ```let```, caso contrário, você utiliza ```const```.
+
+```javascript
+const objectTest = {value: 10};
+
+objectTest.value = 15;
+// It works!
+
+objectTest = {value: 15};
+// Error! Assignment to constant variable.
+```
+
+Como podemos ver, não é possível reatribuir uma variável ```const```, mas podemos mudar uma propriedade dentro dela.
+
+### The lycanthrope’s log
+
+Apesar de não estar presente neste resumo, o capítulo deste livro inicia-se com a história de um homem que se transforma em esquílo todas as noites e, numa tentativa de descobrir o que causa a sua transformação, está tentando encontrar uma associação entre o que ele faz durante o dia e suas transformações.
+
+Para isso, ele constrói o seguinte programa, de forma a sempre poder adicionar os registros diários:
+
+```javascript
+let journal = [];
+
+function addEntry(events, squirrell) {
+  journal.push({events, squirrell});
+}
+```
+
+Note acima que foi colocada a variável diretamente no lugar onde seria a propriedade, ao invés de algo como ```events: events```. Isso porque o JavaScript assume que, caso uma propriedade declarada não tenha uma atribuição, a atribuição será igual à variável de mesmo nome. Veja a demonstração:
+
+```javascript
+let oi = 10;
+let objeto1 = {oi};
+
+console.log(objeto1.oi);
+// -> 10
+```
+
+Voltando à história do homem que (supostamente) se transforma em esquilo. Todos os dias, às 10 p.m., ou então na manhã seguinte (caso ele _supostamente_ se transforme), ele registra o que fez naquele dia e se se transformou. Vejamos os registros dos últimos 3 dias:
+
+```javascript
+addEntry(["work", "touched tree", "pizza", "running",
+          "television"], false);
+addEntry(["work", "ice cream", "cauliflower", "lasagna",
+          "touched tree", "brushed teeth"], false);
+addEntry(["weekend", "cycling", "break", "peanuts",
+          "beer"], true);
+```
+
+Após muitos dias de registros, ele finalmente quer verificar a correlação entre o que ele faz e as transformações.
+
+_Correlação_ é o grau de medida que uma variável estatística afeta outra variável estatística. Toda vez que verificamos uma correlação, obteremos como retorno um número entre -1 e 1, sendo que 1 significa que as variáveis são perfeitamente correlacionadas, 0 significa que não correlacionadas de forma alguma e -1 significa que elas são perfeitamente correlacionadas, mas de forma oposta (quando uma variável é ```true```, a outra é ```false```).
+
+Para se obter esse número, precisamoas utilizar o **coeficiente phi**.
+
+Para entendermos como o _phi_ funciona, vamos pegar a pizza. Qual a correlação entre comer pizza e se transformar em um esquilo? Primeiro, precisamos organizar os dados de forma que possamos saber o número de vezes em que pizza e transformação aconteceram.
+
+![Correlação pizza e transformação](https://eloquentjavascript.net/img/pizza-squirrel.svg)
+
+O coeficiente phi segue a seguinte fórmula:
+
+![Coeficiente phi](https://i.ibb.co/XtS9Q0P/image.png)
+
+Legenda:
+
+- n11 = variável 1 true; variável 2 true.
+- n00 = variável 1 false; variável 2 false.
+- n1• = variável 1 true;
+- n•1 = variável 2 true;
+
