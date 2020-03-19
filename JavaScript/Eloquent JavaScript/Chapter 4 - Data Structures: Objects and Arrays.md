@@ -298,6 +298,8 @@ Legenda:
 
 - n11 = variável 1 true; variável 2 true.
 - n00 = variável 1 false; variável 2 false.
-- n1• = variável 1 true;
-- n•1 = variável 2 true;
+- n1• = soma das situações em que variável 1 true;
+- n•1 = soma das situações em que variável 2 true;
+
+Colocando os valores na fórmula, obteremos que o numerador é 1×76−4×9 = 40, e o denominador √340000, o que resultará em **ϕ ≈ 0.069**. Esse número é muito pequeno e está muito próximo de zero, o que significa que a correlação entre comer pizza e se transformar em esquilo é praticamente inexistente.
 
