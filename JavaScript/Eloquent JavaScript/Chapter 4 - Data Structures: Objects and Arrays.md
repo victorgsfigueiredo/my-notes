@@ -72,3 +72,39 @@ Os nomes das propriedades sempre serão strings. Entretanto, na notação de pon
 
 No caso de _arrays_, os seus elementos são armazenados como propriedades e cada propriedade recebe um número como nome. Como número não são variáveis válidas, você precisa acessar a propriedade de um _array_ através de ```array[number]```. ```length```, por outro lado, é um nome válido e acessamos através de ```object.length``` porque é mais fácil de fazê-lo do que ```object['length']```.
 
+### Methods
+
+Existem propriedades que armazenam valores de funções nativas. Essas propriedades são chamadas de **métodos**.
+
+```javascript
+let nome = 'Victor Gustavo';
+
+console.log(typeof nome.toUpperCase);
+// -> function
+
+console.log(nome.toUpperCase());
+// -> VICTOR GUSTAVO
+```
+
+Toda _string_ tem um método chamado ```toUpperCase```, que torna todas as letras da string maísculas. De forma semelhantemente oposta, temos o método ```toLowerCase```.
+
+Portanto, podemos dizer que "```toUpperCase``` e ```toLowerCase``` são métodos de ```nome```".
+
+Existem dois métodos para a manipulação de _arrays_, vejamos:
+
+```javascript
+let sequence = [1, 2, 3];
+sequence.push(4);
+sequence.push(5);
+
+console.log(sequence);
+// -> (5) [1, 2, 3, 4, 5]
+
+sequence.pop();
+
+console.log(sequence);
+// -> (4) [1, 2, 3, 4]
+```
+
+Os métodos ```push``` e ```pop``` são opostos entre si. ```push``` adiciona um item a um array, enquanto ```pop``` retira o último item da lista.
+
