@@ -443,3 +443,4 @@ console.log(phi(takeTable("amendoim e dente sujo", JOURNAL)));
 Uau! O cálculo do phi para o evento que criamos retornou 1. Isso significa que nosso cidadão se transformava sempre que comia amendoim e não escovava os dentes. Com a ajuda da programação, ele descobriu isso.
 
 Depois dessa descoberta, nosso cidadão nunca mais comeu amendoim e passou a escovar os dentes todos os dias. Com isso, ele nunca mais se transformou em um esquilo.
+
