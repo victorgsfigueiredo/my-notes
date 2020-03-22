@@ -303,3 +303,73 @@ Legenda:
 
 Colocando os valores na fórmula, obteremos que o numerador é 1×76−4×9 = 40, e o denominador √340000, o que resultará em **ϕ ≈ 0.069**. Esse número é muito pequeno e está muito próximo de zero, o que significa que a correlação entre comer pizza e se transformar em esquilo é praticamente inexistente.
 
+### Computing Correlation
+
+Podemos representar os dados da imagem acima, que possui dados sobre o evento pizza, em um _array_. Para isso, podemos utilizar uma lógica binária para fazer a relação entre dois eventos. Como vimos na legenda do tópico anterior, a variável 1 se refere a transformação e a variável 2 ao evento. Portanto, poderíamos representar da seguinte forma:
+
+- 00: transformação ```false```, evento ```false```.
+- 01: transformação ```false```, evento ```true```.
+- 10: transformação ```true```, evento ```false```.
+- 11: transformação ```true```, evento ```true```.
+
+Como percebemos, as situações formam números binários, o que nos permite representar um _array_ com essa situações: ```[00, 01, 10, 11]``` (10 é 2 e 11 é 3).
+
+O próximo passo é realizar uma função ```phi``` que nos permita traduzir a fórmula do coeficiente phi para JavaScript:
+
+```javascript
+function phi(array) {
+  let result = (array[3] * array[0] - array[2] * array[1]) /
+                Math.sqrt((array[2] + array[3]) *
+                          (array[0] + array[1]) *
+                          (array[1] + array[3]) *
+                          (array[0] + array[2]));
+  return result;
+}
+```
+
+Sabendo que a _array_ para o evento "pizza" é ```[76, 9, 4, 1]```, se executarmos ```phi([76, 9, 4, 1])```, obteremos **ϕ ≈ 0.069**, que é o esperado.
+
+Bem, nós montamos a tabela do evento "pizza" manualmente, baseados no exemplo anterior. Mas se quisermos analisar a correlação de vários eventos diferentes, será necessário criar uma função que faça isso para gente, certo? Aqui está a nossa.
+
+```javascript
+function takeTable(event, journal) {
+  let table = [0, 0, 0, 0];
+  for(let i = 0; i < journal.length; i++) {
+    let index = 0;
+    if(journal[i].events.includes(event)) index += 1;
+    if(journal[i].squirrel) index += 2;
+    table[index] += 1;
+  }
+  return table;
+}
+```
+
+Nesse código, descobrimos uma nova propriedade! O ```includes``` verifica se existe o valor passado dentro da propriedade de um objeto. Portanto, se executarmos:
+
+```javascript
+takeTable("pizza", JOURNAL);
+// -> [76, 9, 4, 1]
+```
+
+Obs: o código da variável ```JOURNAL``` está disponível [aqui](https://eloquentjavascript.net/code/journal.js).
+
+## Array loops
+
+É muito comum precisarmos fazer um loop através de todos os elementos de um _array_. Veja que, no código anterior, fizemos algo como:
+
+```javascript
+for(let i = 0; i < JOURNAL.length; i++) {
+  let entry = JOURNAL[i];
+  // Faça alguma coisa com entry
+}
+```
+
+Boas notícias! Existe uma forma mais simples e menos verbosa de se fazer esses loops:
+
+```javascript
+for(let entry of JOURNAL) {
+  console.log(`${entry.events.length} events.`);
+}
+```
+
+Sempre que um ```for``` vier com a declaração de uma variável seguida de ```of```, significa que este é um _array_ loop, que irá transpassar por todos os elementos do array e que a variável declarada terá o valor ```array[i]```.
