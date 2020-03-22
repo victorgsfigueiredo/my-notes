@@ -373,3 +373,73 @@ for(let entry of JOURNAL) {
 ```
 
 Sempre que um ```for``` vier com a declaração de uma variável seguida de ```of```, significa que este é um _array_ loop, que irá transpassar por todos os elementos do array e que a variável declarada terá o valor ```array[i]```.
+
+### The final analysis
+
+Sabendo tudo o que sabemos agora, temos as ferramentas necessárias para verificar quais eventos tem uma correlação relevante.
+
+Para isso, primeiro precisamos criar uma _array_ que possúa todos os eventos:
+
+```javascript
+functions allEventsFrom(journal) {
+  let events = [];
+  for(let entry of journal) {
+    for(let event of entry.events) {
+      if(!events.includes(event)) {
+        events.push(event);
+      }
+    } 
+  }
+  return events;
+}
+```
+
+Com a função acima, poderemos obter o _array_ com todos os eventos executando ```allEventsFrom(JOURNAL)```. Agora que possuímos um código para listar os eventos, bem como construir uma tabela para cada evento e, também, para calcular o coeficiente phi com base na tabela construída, podemos fazer uma solução final para calcular o phi de cada evento:
+
+```javascript
+let events = allEventsFrom(JOURNAL);
+for(let event of events) {
+  console.log(event + ':  ' + phi(takeTable(event, JOURNAL)));
+}
+```
+
+Isso retornará o coeficiente phi de todos os eventos. Existem muitos eventos cujo phi é próximo de 0. Portanto, podemos colocar uma condição para que só sejam retornados coeficientes phi maiores que 0.1 ou menores que -0.1. Reorganizando o código, temos:
+
+```javascript
+let events = allEventsFrom(JOURNAL);
+for(let event of events) {
+  let result = phi(takeTable(event, JOURNAL)).toFixed(3);
+  if(result > 0.1 || result < -0.1) {
+    console.log(event + ':  ' + result);
+  }
+}
+```
+
+Também adicionei a propriedade ```.toFixed(3)``` ao resultado, para que só sejam exibidas as três primeiras casas decimais, de forma que os resultados não fiquem exorbitantemente grandes.
+
+Obtivemos alguns retornos interessantes. Especial atenção para os seguintes:
+
+```
+brushed teeth:  -0.381
+peanuts:  0.590
+```
+
+Comer amendoim parece ter uma forte relação com a transformação: quando o nosso acompanhado come amendoim, as chances de ele se transformar são muito maiores. Já escovar os dentes tem o efeito oposto: parece que escovar os dentes previne as transformações.
+
+Visto isso, vamos tentar o seguinte: vamos pegar todos os dias em que ele comeu amendoim e não escovou os dentes e criar um evento chamado "amendoim e dente sujo" e adicioná-los a esses dias. Fazendo isso, seremos capazes de calcular o coeficiente phi para esse evento em específico, o que permitirá ver se eles possuem uma relação muito forte quando estão associados.
+
+```javascript
+for(let entry of JOURNAL) {
+  if(entry.events.includes("peanuts") &&
+     !entry.events.includes("brushed teeth")) {
+       entry.events.push("amendoim e dente sujo");
+     }
+}
+
+console.log(phi(takeTable("amendoim e dente sujo", JOURNAL)));
+// -> 1
+```
+
+Uau! O cálculo do phi para o evento que criamos retornou 1. Isso significa que nosso cidadão se transformava sempre que comia amendoim e não escovava os dentes. Com a ajuda da programação, ele descobriu isso.
+
+Depois dessa descoberta, nosso cidadão nunca mais comeu amendoim e passou a escovar os dentes todos os dias. Com isso, ele nunca mais se transformou em um esquilo.
